@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Home from "pages/Home";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
-
+import "./App.css";
 /* Basic CSS for apps built with Ionic */
 import "@ionic/react/css/normalize.css";
 import "@ionic/react/css/structure.css";
@@ -22,6 +22,7 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import Menu from "components/Menu";
 
 const App: React.FC = () => {
   const account = useSelector((state: any) => state.user.account);
@@ -41,12 +42,14 @@ const App: React.FC = () => {
   useEffect(() => {
     loadBlockchainData();
     console.log("Account: ", account);
+    // window.location.reload();
   }, [account]);
 
   return (
     <IonApp>
       <IonReactRouter>
-        <IonRouterOutlet>
+        <Menu />
+        <IonRouterOutlet id='custom'>
           <Route exact path='/home'>
             <Home />
           </Route>
