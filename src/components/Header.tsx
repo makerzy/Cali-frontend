@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   IonAvatar,
@@ -15,9 +15,9 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { web3 as connect } from "hooks/useWeb3Provider";
-import { useState } from "react";
 import { useAccount } from "store/hook";
 import { truncateWalletAddress } from "utils/help";
+
 const HeaderContainer = styled.div`
   display: grid;
   grid-template-columns: 4fr 2fr;

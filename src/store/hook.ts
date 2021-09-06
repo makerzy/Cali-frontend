@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const useAccount = () => {
   const account = useSelector((state: any) => state.user.account);
@@ -9,4 +9,9 @@ export const useAccount = () => {
 export const useNetwork = () => {
   const network = useSelector((state: any) => state.user.networkId);
   return network;
+};
+
+export const useFarm = () => {
+  const farm = useSelector((state: any) => state.farm);
+  return farm;
 };

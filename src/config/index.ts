@@ -2,9 +2,9 @@ import { BIG_TEN, toBN } from "../utils/BigNumber";
 
 export const BSC_BLOCK_TIME = 3;
 
-export const DELFY_PER_BLOCK = toBN(40);
+export const CALI_PER_BLOCK = toBN(2.9);
 export const BLOCKS_PER_YEAR = toBN((60 / BSC_BLOCK_TIME) * 60 * 24 * 365); // 10512000
-export const DELFY_PER_YEAR = DELFY_PER_BLOCK.times(BLOCKS_PER_YEAR);
+export const CALI_PER_YEAR = CALI_PER_BLOCK.times(BLOCKS_PER_YEAR);
 export const BASE_URL = "https://delfyfinance.org";
 export const BASE_EXCHANGE_URL = "https://exchange.delfyfinance.org";
 export const BASE_ADD_LIQUIDITY_URL = `${BASE_EXCHANGE_URL}/#/add`;
