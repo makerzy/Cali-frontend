@@ -9,7 +9,12 @@ import {
 } from "@ionic/react";
 import Farmcard from "components/Farmcard";
 import HeaderBar from "components/Header";
-import { useAccount, useFarm } from "store/hook";
+import {
+  useAccount,
+  useCaliBusdValue,
+  useCaliLPBusdValue,
+  useFarm,
+} from "store/hook";
 import { useDispatch } from "react-redux";
 import { FETCH_FARM } from "sagas/types";
 import { getCaliFarmApr } from "utils/aprHelper";
@@ -31,6 +36,10 @@ const Home: React.FC = () => {
     setFarm(data);
     const apr = getCaliFarmApr(toBN(1.5), toBN(1500));
   }
+  // const caliPrice = useCaliBusdValue();
+  // const caliLpPrice = useCaliLPBusdValue();
+
+  // console.log("CaliPrice: ", caliPrice, "caliLpPrice: ", caliLpPrice);
   return (
     <IonPage>
       <IonHeader collapse='condense'>

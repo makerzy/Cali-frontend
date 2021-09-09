@@ -15,3 +15,12 @@ export const useFarm = () => {
   const farm = useSelector((state: any) => state.farm);
   return farm;
 };
+
+export const useCaliBusdValue = () => {
+  const farm = useSelector((state: any) => state.farm.data);
+  return farm.caliBusdPrice;
+};
+export const useCaliLPBusdValue = () => {
+  const farm = useSelector((state: any) => state.farm.data);
+  return farm.caliLpBusd;
+};

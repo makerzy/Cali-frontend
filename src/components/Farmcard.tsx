@@ -68,6 +68,9 @@ const DetailsContainer = styled.div`
 `;
 
 const Key = styled.h6`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   padding: 0 !important;
   margin: 0 !important;
   color: #000;
@@ -193,6 +196,7 @@ const Farmcard: React.FC<IFarm> = ({ account }) => {
         <DetailsContainer>
           <Key>
             <b>0.0000</b>
+            <small style={{ color: "#8169ae" }}>$1,000,000</small>
           </Key>
           <IonButton disabled={!account?.length} size='small'>
             Harvest
@@ -208,6 +212,7 @@ const Farmcard: React.FC<IFarm> = ({ account }) => {
             <DetailsContainer style={{ paddingBottom: "0" }}>
               <Key>
                 <b>0.0000</b>
+                <small style={{ color: "#8169ae" }}>$1,000,000</small>
               </Key>
               <StakeArea>
                 <StakeBtn fill='outline'>
