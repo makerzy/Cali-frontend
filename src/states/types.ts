@@ -11,3 +11,9 @@ export interface FarmUserDataResponse {
   stakedBalance: string;
   earnings: string;
 }
+
+export interface FarmState {
+  loading: boolean;
+  userDataLoaded: boolean;
+  data: Farm;
+}

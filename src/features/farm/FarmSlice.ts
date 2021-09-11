@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Farm } from "states/types";
+import { Farm, FarmState } from "states/types";
 
 const noAccountFarmConfig: Farm = {
   caliBusdPrice: "0",
@@ -8,7 +8,7 @@ const noAccountFarmConfig: Farm = {
   user: null,
 };
 
-const initialState = {
+const initialState: FarmState = {
   loading: true,
   data: noAccountFarmConfig,
   userDataLoaded: false,

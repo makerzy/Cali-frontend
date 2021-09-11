@@ -8,7 +8,6 @@ const use_stake = (
   withdrawRewards: boolean,
   _web3: Web3,
 ) => {
-  console.log("amnt: ", amount);
   return deposit(getStakingContract(_web3), amount, withdrawRewards, account);
 };
 

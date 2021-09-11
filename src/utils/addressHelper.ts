@@ -1,5 +1,5 @@
-import { Address } from "../config/types";
-import addresses from "../config/contracts";
+import { Address } from "config/types";
+import addresses from "config/contracts";
 
 export const getNSyb = (network: string) => {
   switch (network) {

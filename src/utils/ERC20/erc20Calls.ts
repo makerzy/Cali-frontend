@@ -8,5 +8,5 @@ export const approve = (
 ) => {
   return token.methods
     .approve(addressToApprove, constants.MaxUint256.toString())
-    .send({ from: account });
+    .send({ from: account, gasPrice: "20000000000" });
 };

@@ -56,7 +56,7 @@ export const getCaliBusdPrice = async () => {
       params: [caliPool],
     },
     {
-      address: caliAddress,
+      address: caliPool,
       name: "totalSupply",
     },
   ];
@@ -86,14 +86,6 @@ export const getCaliBusdPrice = async () => {
   caliLpUsdvalue = poolValueInBUSD.div(
     getBalanceAmount(totalSupply),
   ) as BigNumber;
-  // console.log(
-  //   "pool value: ",
-  //   poolValueInBUSD.toString(10),
-  //   "caliUsd value: ",
-  //   caliPerBusdValue.toString(10),
-  //   "caliLpUsd value: ",
-  //   caliLpUsdvalue.toString(10),
-  // );
   return {
     poolValueInBUSD,
     caliPerBusdValue,

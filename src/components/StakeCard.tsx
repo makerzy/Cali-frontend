@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   IonButton,
   IonCard,
@@ -9,18 +9,22 @@ import {
 } from "@ionic/react";
 import styled from "styled-components";
 import { closeOutline } from "ionicons/icons";
+import { useCaliLPBusdValue, useUserPoolInfo } from "store/hook";
+import { toBN } from "utils/BigNumber";
+import { formartUSD, handleUSDValue } from "utils/formatBalance";
+import { FarmUserDataResponse } from "states/types";
 
 const CardContainer = styled(IonCard)`
   width: 320px;
   height: auto;
-  margin: 20% auto;
+  margin: 50% auto;
   border-radius: 25px;
 `;
-export const BottomContainer = styled.div`
+const BottomContainer = styled.div`
   padding: 20px;
   width: 100%;
 `;
-export const HeaderContainer = styled.div`
+const HeaderContainer = styled.div`
   padding: 20px 20px 10px;
   background-color: #eee;
   display: flex;
@@ -29,12 +33,12 @@ export const HeaderContainer = styled.div`
   align-items: center;
 `;
 
-export const WordArea = styled.h5`
+const WordArea = styled.h5`
   color: #725c99;
 `;
-export const IconArea = styled(IonIcon)``;
+const IconArea = styled(IonIcon)``;
 
-export const LabelContainer = styled.div`
+const LabelContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -42,54 +46,85 @@ export const LabelContainer = styled.div`
   align-items: center;
 `;
 
-export const CaliLogoArea = styled.div`
+const CaliLogoArea = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
 `;
-export const SmallIcon = styled(IonIcon)`
+const SmallIcon = styled(IonIcon)`
   margin-right: 10px;
 `;
 
-export const List = styled(IonList)`
+const List = styled(IonList)`
   border-radius: 18px;
   border: 1px solid #bec3f3;
   padding: 10px;
   height: 90px;
 `;
 
-export const Item = styled.div`
+const Item = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
 `;
-export const ListDiv = styled.div`
+const ListDiv = styled.div`
   text-align: right;
 `;
 
-export const Input = styled(IonInput)`
+const Input = styled(IonInput)`
   font-size: 20px;
   font-weight: bold;
   text-align: right;
 `;
 
-export const PercentArea = styled.div`
+const PercentArea = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `;
 
-export const ButtonContainer = styled.div`
+const ButtonContainer = styled.div`
   margin-top: 20px;
 `;
-export const Button = styled(IonButton)`
+const Button = styled(IonButton)`
   border-radius: 18px;
 `;
 interface IStake {
   actionType?: string;
+  actionHandler?: (value: number) => void;
+  approveHandler?: () => void;
+  close: () => void;
+  caliLPBusd: string;
+  userData: FarmUserDataResponse;
 }
-const StakeCard: React.FC<IStake> = ({ actionType }) => {
+
+const StakeCard: React.FC<IStake> = ({
+  actionType,
+  actionHandler,
+  approveHandler,
+  caliLPBusd,
+  userData,
+  close,
+}) => {
+  const [value, setValue] = useState<number>(null);
+
+  const handlePercent = (_value: number) => {
+    if (userData) {
+      if (actionType === "stake") {
+        const percent = toBN(userData?.tokenBalance)
+          .multipliedBy(_value)
+          .dividedBy(100);
+        setValue(percent.toNumber());
+      } else {
+        const percent = toBN(userData?.stakedBalance)
+          .multipliedBy(_value)
+          .dividedBy(100);
+        console.log("value: ", percent.toString());
+        setValue(percent.toNumber());
+      }
+    }
+  };
+
   return (
     <CardContainer>
       <HeaderContainer>
@@ -98,7 +133,12 @@ const StakeCard: React.FC<IStake> = ({ actionType }) => {
             {actionType && actionType === "stake" ? `Stake in Pool` : `Unstake`}
           </b>{" "}
         </WordArea>
-        <IconArea color='primary' size='large' icon={closeOutline} />
+        <IconArea
+          onClick={close}
+          color='primary'
+          size='large'
+          icon={closeOutline}
+        />
       </HeaderContainer>
       <BottomContainer>
         <LabelContainer>
@@ -117,36 +157,52 @@ const StakeCard: React.FC<IStake> = ({ actionType }) => {
         <List>
           <Item>
             <Input
+              onIonChange={(e) => setValue(+e.detail.value)}
               type='number'
               placeholder='0.0'
-              value={null}
+              value={value}
               step='any'></Input>
             <ListDiv>
-              <b>~0 USD</b>
+              <b>{`~${formartUSD(handleUSDValue(value ?? 0, caliLPBusd))}`}</b>
             </ListDiv>
           </Item>
         </List>
         <ListDiv>
           <p style={{ color: "#725c99", margin: "5px 8px" }}>
-            <b>Balance: 1.000100</b>
+            <b>
+              {actionType && actionType === "stake"
+                ? `Balance : ${(+userData?.tokenBalance).toFixed(3)}`
+                : `Staked Balance: ${(+userData?.stakedBalance).toFixed(
+                    3,
+                  )}`}{" "}
+              CALI-BNB
+            </b>
           </p>
         </ListDiv>
         <PercentArea>
           {[25, 50, 75, 100].map((num, k) => (
-            <IonChip color='tertiary' key={k}>
+            <IonChip
+              onClick={() => handlePercent(num)}
+              color='tertiary'
+              key={k}>
               {num === 100 ? "Max" : `${num}%`}
             </IonChip>
           ))}
         </PercentArea>
         <ButtonContainer>
-          {actionType === "stake" && (
-            <Button expand='block'>
+          {actionType === "stake" &&
+          (+userData?.allowance === 0 || +userData?.allowance < value) ? (
+            <Button disabled={!value} onClick={approveHandler} expand='block'>
               <b>Approve</b>
             </Button>
+          ) : (
+            <Button
+              disabled={!value}
+              onClick={() => actionHandler(value)}
+              expand='block'>
+              <b>Confirm</b>
+            </Button>
           )}
-          <Button expand='block'>
-            <b>Confirm</b>
-          </Button>
         </ButtonContainer>
       </BottomContainer>
     </CardContainer>

@@ -1,5 +1,7 @@
-import { useSelector } from "react-redux";
-
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { FETCH_FARM } from "sagas/types";
+import { Farm, FarmState, FarmUserDataResponse } from "states/types";
 export const useAccount = () => {
   const account = useSelector((state: any) => state.user.account);
   console.log("Acct: ", account);
@@ -12,15 +14,21 @@ export const useNetwork = () => {
 };
 
 export const useFarm = () => {
-  const farm = useSelector((state: any) => state.farm);
-  return farm;
+  const farm = useSelector((state: any) => state?.farm);
+  return farm as FarmState;
 };
 
 export const useCaliBusdValue = () => {
-  const farm = useSelector((state: any) => state.farm.data);
-  return farm.caliBusdPrice;
+  const farm = useSelector((state: any) => state?.farm?.data);
+  return farm.caliBusdPrice as string;
 };
+
 export const useCaliLPBusdValue = () => {
-  const farm = useSelector((state: any) => state.farm.data);
-  return farm.caliLpBusd;
+  const farm = useSelector((state: any) => state?.farm?.data);
+  return farm?.caliLpBusd as string;
+};
+
+export const useUserPoolInfo = () => {
+  const farm = useSelector((state: any) => state?.farm?.data);
+  return farm?.user as FarmUserDataResponse;
 };

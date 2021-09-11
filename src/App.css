@@ -4,3 +4,10 @@
   font-family: 'Lato', sans-serif;
   /* // font-family: 'Roboto Slab', serif; */
 }
+
+html.plt-mobile ion-app {
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
+}
