@@ -6,7 +6,7 @@ const tokens = {
       test: "0x3645ee609e80b9756a960524Dc6675780C814Ca8",
     },
     decimals: 18,
-    projectLink: "https://calitoken.me/",
+    projectLink: "https://calicoin.me/",
   },
   busd: {
     symbol: "BUSD",

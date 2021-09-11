@@ -22,7 +22,7 @@ export const fetchFarm = async () => {
     caliLpBusd: caliLpUsdvalue.toString(10),
     totalPoolValueBusd: poolValueInBUSD.toString(10),
   } as Farm;
-  console.log("PoolInfo: ", poolInfo);
+  // console.log("PoolInfo: ", poolInfo);
   return poolInfo;
 };
 
@@ -37,6 +37,6 @@ export const fetchFarmUser = async (account: string) => {
     earnings: getBalanceAmount(earnings).toString(10),
     tokenBalance: getBalanceAmount(tokenBalance).toString(10),
   } as FarmUserDataResponse;
-  console.log("userdata: ", userData);
+  // console.log("userdata: ", userData);
   return userData;
 };

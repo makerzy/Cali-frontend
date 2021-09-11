@@ -4,7 +4,7 @@ import { FETCH_FARM } from "sagas/types";
 import { Farm, FarmState, FarmUserDataResponse } from "states/types";
 export const useAccount = () => {
   const account = useSelector((state: any) => state.user.account);
-  console.log("Acct: ", account);
+  // console.log("Acct: ", account);
   return account;
 };
 

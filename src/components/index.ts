@@ -5,3 +5,4 @@ export { default as FarmCard } from "./Farmcard";
 export { default as TransactionDeny } from "./TransactionDeny";
 export { default as TransactionSubmitted } from "./TransactionSubmitted";
 export { default as TransactionWaiting } from "./TransactionWaiting";
+export { default as FooterComponent } from "./Footer";

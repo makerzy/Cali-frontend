@@ -9,13 +9,14 @@ import erc20 from "abi/erc20.json";
 import { toBN } from "utils/BigNumber";
 import BigNumber from "bignumber.js";
 import { getBalanceAmount, getDecimalAmount } from "utils/formatBalance";
+
 export const getBnbBusdPrice = async () => {
   const bnbBusdPool = getBnbBusdLPAddress() as string;
   const bnbAddress = getAddress(tokens.wbnb.address) as string;
   const busdAddress = getAddress(tokens.busd.address) as string;
-  console.log("BUSD Address: ", busdAddress);
-  console.log("BNB Address: ", bnbAddress);
-  console.log("BNBBUSD POOL Address: ", bnbBusdPool);
+  // console.log("BUSD Address: ", busdAddress);
+  // console.log("BNB Address: ", bnbAddress);
+  // console.log("BNBBUSD POOL Address: ", bnbBusdPool);
   const calls = [
     {
       address: bnbAddress,

@@ -4,10 +4,11 @@ import styled from "styled-components";
 import { closeOutline } from "ionicons/icons";
 
 const LoadingCardContainer = styled(IonCard)`
-  width: 350px;
+  width: 320px;
   height: auto;
   border-radius: 25px;
   color: #333;
+  margin: auto;
 `;
 const GifWrapper = styled.div`
   width: 60%;

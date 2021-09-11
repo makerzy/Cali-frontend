@@ -5,11 +5,12 @@ import { closeOutline } from "ionicons/icons";
 import { BASE_BSC_SCAN_TEST_URL_TX } from "config";
 
 const SubmittedCardContainer = styled(IonCard)`
-  width: 350px;
+  width: 320px;
   height: auto;
   border-radius: 25px;
   color: #333;
   padding: 20px;
+  margin: auto;
 `;
 
 const IMageContainer = styled.div`
@@ -52,7 +53,7 @@ interface TrxSubmitted {
 const TransactionSubmitted: React.FC<TrxSubmitted> = (
   trxSubmitted: TrxSubmitted,
 ) => {
-  console.log("Hash: ", trxSubmitted.hash);
+  // console.log("Hash: ", trxSubmitted.hash);
   return (
     <SubmittedCardContainer>
       <Header>

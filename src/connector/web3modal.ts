@@ -43,7 +43,7 @@ export const web3Provider = async () => {
 
 const subscribeToEvents = async () => {
   provider.on("accountsChanged", (accounts: string) => {
-    console.log("Account: ", accounts);
+    // console.log("Account: ", accounts);
     store.dispatch({ type: "SET_ACCOUNT", payload: accounts[0] });
   });
 

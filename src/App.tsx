@@ -41,7 +41,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     loadBlockchainData();
-    console.log("Account: ", account);
+    // console.log("Account: ", account);
     // window.location.reload();
   }, [account]);
 

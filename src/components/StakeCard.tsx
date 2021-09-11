@@ -119,7 +119,7 @@ const StakeCard: React.FC<IStake> = ({
         const percent = toBN(userData?.stakedBalance)
           .multipliedBy(_value)
           .dividedBy(100);
-        console.log("value: ", percent.toString());
+        // console.log("value: ", percent.toString());
         setValue(percent.toNumber());
       }
     }

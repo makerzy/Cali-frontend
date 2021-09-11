@@ -58,7 +58,7 @@ const HeaderBar = () => {
   const account = useAccount();
   if (account && locked) {
     setLocked(false);
-    console.log("Account: ", account);
+    // console.log("Account: ", account);
   }
   return (
     <HeaderContainer>

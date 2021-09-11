@@ -23,7 +23,7 @@ const farmSlice = createSlice({
     setLoading: (state, { payload }) => void (state.loading = payload),
     setFarmUser: (state, { payload }) => {
       state.data = { ...state.data, user: payload };
-      console.log("Full PayLoad: ", state.data);
+      // console.log("Full PayLoad: ", state.data);
     },
     setUserDataLoaded: (state, { payload }) =>
       void (state.userDataLoaded = payload),

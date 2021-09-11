@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IonContent, IonHeader, IonPage, IonToolbar } from "@ionic/react";
 
-import { Header, FarmCard } from "components";
+import { Header, FarmCard, FooterComponent } from "components";
 import {
   useAccount,
   useCaliBusdValue,
@@ -15,11 +15,13 @@ import { toBN } from "utils/BigNumber";
 import { Farm } from "states/types";
 import styled from "styled-components";
 import background from "./bgsvg.svg";
+
 const Content = styled.div`
   background: #f1f5f7 url(${background}) repeat center center;
   height: 100%;
   width: 100%;
 `;
+
 const Home: React.FC = () => {
   const account = useAccount();
   const dispatch = useDispatch();
@@ -45,7 +47,7 @@ const Home: React.FC = () => {
       toBN(data.caliLpBusd),
       toBN(data.totalPoolValueBusd),
     );
-    console.log("Apr: ", apr);
+    // console.log("Apr: ", apr);
     setTotalLiquidityBusd(data?.totalPoolValueBusd);
     setApr(apr);
   }
@@ -57,12 +59,15 @@ const Home: React.FC = () => {
           <Header />
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
+      <IonContent>
         <Content>
+          {/* <Container> */}
           <FarmCard
             userData={userDataLoaded ? data?.user : null}
             {...{ account, apr, totalLiquidityBusd, caliLPUsd, caliUsd }}
           />
+          {/* </Container> */}
+          <FooterComponent />
         </Content>
       </IonContent>
     </IonPage>

@@ -26,7 +26,6 @@ export const claim = (stakingContract: Contract, account: string) => {
 
 export const withdraw = (
   stakingContract: Contract,
-
   amount: number,
   withdrawRwd: boolean = false,
   account: string,

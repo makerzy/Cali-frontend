@@ -34,14 +34,15 @@ import { FarmUserDataResponse } from "states/types";
 
 const Container = styled.div`
   width: 100%;
-  height: auto;
+  height: 100%;
   overflow: auto;
 `;
 const InnerContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 80px;
+  padding: 80px 0;
   width: 100%;
+  height: auto;
   @media (min-width: 750px) {
     width: 750px;
     margin: auto;
@@ -68,7 +69,7 @@ const CaliCard = styled(IonCard)`
   border-radius: 25px !important;
   width: 320px;
   height: auto;
-  margin: auto;
+  margin: 0 auto 50px;
   padding-bottom: 20px;
 `;
 
@@ -201,7 +202,7 @@ const Farmcard: React.FC<IFarm> = ({
 
   if (account && locked) {
     setLocked(false);
-    console.log("Account: ", account);
+    // console.log("Account: ", account);
   }
 
   const handleErrorDismiss = () => {
@@ -229,7 +230,7 @@ const Farmcard: React.FC<IFarm> = ({
   );
 
   const handleDismiss = (userInput?: string) => {
-    console.log("userInputs: ", userInput);
+    // console.log("userInputs: ", userInput);
     dismissStake();
   };
   const approve = async () => {
@@ -237,18 +238,18 @@ const Farmcard: React.FC<IFarm> = ({
     const _web3: Web3 = await web3();
     use_approve(account, _web3)
       .on("transactionHash", (tx: any) => {
-        console.log("trxn: ", tx);
+        // console.log("trxn: ", tx);
         setTxnSubmittedMsg(`${tx}`);
         presentSubmitted();
         dismissTxnWaiting();
       })
       .once("receipt", (receipt: any) => {
         const event = receipt?.events;
-        console.log("ReceiptEvents: ", event);
+        // console.log("ReceiptEvents: ", event);
         dismissSubmitted();
       })
       .on("error", (error: any) => {
-        console.log("txn errors", error);
+        // console.log("txn errors", error);
         setErrorMsg(error.message);
         presentError();
         dismissTxnWaiting();
@@ -257,47 +258,47 @@ const Farmcard: React.FC<IFarm> = ({
 
   const unstake = async (value: number) => {
     presentTxnWaiting();
-    console.log("Number: ", value);
+    // console.log("Number: ", value);
     const _web3: Web3 = await web3();
     use_unstake(value, account, false, _web3)
       .on("transactionHash", (tx: any) => {
-        console.log("trxn: ", tx);
+        // console.log("trxn: ", tx);
         setTxnSubmittedMsg(`${tx}`);
         presentSubmitted();
         dismissTxnWaiting();
       })
       .once("receipt", (receipt: any) => {
         const event = receipt?.events;
-        console.log("ReceiptEvents: ", event);
+        // console.log("ReceiptEvents: ", event);
         dismissSubmitted();
         window.location.reload();
       })
       .on("error", (error: any) => {
-        console.log("txn errors", error);
+        // console.log("txn errors", error);
         setErrorMsg(error.message);
         presentError();
         dismissTxnWaiting();
       });
   };
   const stake = async (value: number) => {
-    console.log("Number: ", value);
+    // console.log("Number: ", value);
     presentTxnWaiting();
     const _web3: Web3 = await web3();
     use_stake(value, account, false, _web3)
       .on("transactionHash", (tx: any) => {
-        console.log("trxn: ", tx);
+        // console.log("trxn: ", tx);
         setTxnSubmittedMsg(`${tx}`);
         presentSubmitted();
         dismissTxnWaiting();
       })
       .once("receipt", (receipt: any) => {
         const event = receipt?.events;
-        console.log("ReceiptEvents: ", event);
+        // console.log("ReceiptEvents: ", event);
         dismissSubmitted();
         window.location.reload();
       })
       .on("error", (error: any) => {
-        console.log("txn errors", error);
+        // console.log("txn errors", error);
         setErrorMsg(error.message);
         presentError();
         dismissTxnWaiting();
@@ -318,19 +319,19 @@ const Farmcard: React.FC<IFarm> = ({
     presentTxnWaiting();
     use_claim(account, _web3)
       .on("transactionHash", (tx: any) => {
-        console.log("trxn: ", tx);
+        // console.log("trxn: ", tx);
         setTxnSubmittedMsg(`${tx}`);
         presentSubmitted();
         dismissTxnWaiting();
       })
       .once("receipt", (receipt: any) => {
         const event = receipt?.events;
-        console.log("ReceiptEvents: ", event);
+        // console.log("ReceiptEvents: ", event);
         dismissSubmitted();
         window.location.reload();
       })
       .on("error", (error: any) => {
-        console.log("txn errors", error);
+        // console.log("txn errors", error);
         setErrorMsg(error.message);
         presentError();
         dismissTxnWaiting();

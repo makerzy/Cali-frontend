@@ -16,7 +16,7 @@ export const fetchFarmUserAllowance = async (account: string) => {
   ];
 
   const [rawLpAllowances] = await multicall(erc20ABI, calls);
-  console.log("Allowances: ", toBN(rawLpAllowances).toJSON());
+  // console.log("Allowances: ", toBN(rawLpAllowances).toJSON());
   return toBN(rawLpAllowances).toJSON();
 };
 
@@ -31,7 +31,7 @@ export const fetchFarmUserTokenBalance = async (account: string) => {
   ];
 
   const [rawTokenBalances] = await multicall(erc20ABI, calls);
-  console.log("TokenBal: ", toBN(rawTokenBalances).toJSON());
+  // console.log("TokenBal: ", toBN(rawTokenBalances).toJSON());
   return toBN(rawTokenBalances).toJSON();
 };
 
@@ -66,6 +66,6 @@ export const fetchFarmUserEarnings = async (account: string) => {
   ];
 
   const [rawEarnings] = await multicall(stakingContractABI, calls);
-  console.log("earnings: ", toBN(rawEarnings).toJSON());
+  // console.log("earnings: ", toBN(rawEarnings).toJSON());
   return toBN(rawEarnings).toJSON();
 };

@@ -11,3 +11,9 @@ html.plt-mobile ion-app {
   -ms-user-select: auto;
   user-select: auto;
 }
+
+.modal-wrapper.sc-ion-modal-md, .modal-shadow.sc-ion-modal-md{
+  --background: var(--background); 
+  --webkit-box-shadow: var(--box-shadow); 
+  --box-shadow: var(--box-shadow);
+}
