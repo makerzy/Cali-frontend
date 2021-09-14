@@ -32,3 +32,17 @@ export const useUserPoolInfo = () => {
   const farm = useSelector((state: any) => state?.farm?.data);
   return farm?.user as FarmUserDataResponse;
 };
+
+export const useUpdated = () => {
+  const account = useAccount();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const interval = setInterval(() => {
+      account
+        ? dispatch({ type: FETCH_FARM, payload: { account } })
+        : dispatch({ type: FETCH_FARM });
+    }, 60_000);
+
+    return () => clearInterval(interval);
+  }, []);
+};

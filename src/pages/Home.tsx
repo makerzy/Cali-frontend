@@ -7,6 +7,7 @@ import {
   useCaliBusdValue,
   useCaliLPBusdValue,
   useFarm,
+  useUpdated,
 } from "store/hook";
 import { useDispatch } from "react-redux";
 import { FETCH_FARM } from "sagas/types";
@@ -30,32 +31,31 @@ const Home: React.FC = () => {
   const [farm, setFarm] = useState<Farm>(null);
   const caliLPUsd = useCaliLPBusdValue();
   const caliUsd = useCaliBusdValue();
-  const { loading, userDataLoaded, data } = useFarm();
+  const { userDataLoaded, data } = useFarm();
+  const [fetched, setFetched] = useState(false);
+  useUpdated();
   useEffect(() => {
-    dispatch({ type: FETCH_FARM });
-    if (account) {
-      dispatch({ type: FETCH_FARM, payload: { account } });
-      setInterval(() => {
-        dispatch({ type: FETCH_FARM, payload: { account } });
-      }, 60_000);
+    if (!fetched) {
+      account
+        ? dispatch({ type: FETCH_FARM, payload: { account } })
+        : dispatch({ type: FETCH_FARM });
+      setFetched(true);
     }
-  }, [account]);
 
-  if (!loading && !farm && data) {
     setFarm(data);
+
     const apr = getCaliFarmApr(
-      toBN(data.caliLpBusd),
-      toBN(data.totalPoolValueBusd),
+      toBN(data?.caliLpBusd),
+      toBN(data?.totalPoolValueBusd),
     );
-    // console.log("Apr: ", apr);
     setTotalLiquidityBusd(data?.totalPoolValueBusd);
     setApr(apr);
-  }
+  }, [account, data]);
 
   return (
     <IonPage>
-      <IonHeader collapse='condense'>
-        <IonToolbar>
+      <IonHeader>
+        <IonToolbar color='dark'>
           <Header />
         </IonToolbar>
       </IonHeader>
@@ -63,7 +63,7 @@ const Home: React.FC = () => {
         <Content>
           {/* <Container> */}
           <FarmCard
-            userData={userDataLoaded ? data?.user : null}
+            userData={userDataLoaded ? farm?.user : null}
             {...{ account, apr, totalLiquidityBusd, caliLPUsd, caliUsd }}
           />
           {/* </Container> */}

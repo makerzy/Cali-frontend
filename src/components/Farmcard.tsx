@@ -35,7 +35,6 @@ import { FarmUserDataResponse } from "states/types";
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  overflow: auto;
 `;
 const InnerContainer = styled.div`
   display: flex;
@@ -393,7 +392,7 @@ const Farmcard: React.FC<IFarm> = ({
                 <b>{`~ ${
                   user
                     ? `${formartUSD(handleUSDValue(+user?.earnings, caliUsd))} `
-                    : "0.00"
+                    : "$0.00"
                 }`}</b>
               </small>
             </Key>
@@ -413,12 +412,18 @@ const Farmcard: React.FC<IFarm> = ({
               </SmallContainer>
               <DetailsContainer style={{ paddingBottom: "0" }}>
                 <Key>
-                  <b>{`${formatThousands(user?.stakedBalance)}`}</b>
+                  <b>{`${
+                    user ? `${formatThousands(user?.stakedBalance)}` : "0.00"
+                  }`}</b>
                   <small style={{ color: "#8169ae" }}>
                     <b>
-                      {`~ ${formartUSD(
-                        handleUSDValue(+user?.stakedBalance, caliLPUsd),
-                      )}`}
+                      {`~ ${
+                        user
+                          ? `${formartUSD(
+                              handleUSDValue(+user?.stakedBalance, caliLPUsd),
+                            )}`
+                          : "$0.00"
+                      }`}
                     </b>
                   </small>
                 </Key>

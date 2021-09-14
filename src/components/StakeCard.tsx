@@ -17,7 +17,7 @@ import { FarmUserDataResponse } from "states/types";
 const CardContainer = styled(IonCard)`
   width: 320px;
   height: auto;
-  margin: 50% auto;
+  margin: auto;
   border-radius: 25px;
 `;
 const BottomContainer = styled.div`
