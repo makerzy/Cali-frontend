@@ -40,7 +40,7 @@ export const fetchFarmUserStakedBalance = async (account: string) => {
   const calls = [
     {
       address: stakingAddress,
-      name: "getUserPoolInfo",
+      name: "getUser",
       params: [account],
     },
   ];
@@ -51,6 +51,7 @@ export const fetchFarmUserStakedBalance = async (account: string) => {
   //   rawStakedBalances,
   //   toBN(rawStakedBalances[0]._hex).toJSON(),
   // );
+
   return toBN(rawStakedBalances[0]._hex).toJSON();
 };
 
@@ -66,6 +67,6 @@ export const fetchFarmUserEarnings = async (account: string) => {
   ];
 
   const [rawEarnings] = await multicall(stakingContractABI, calls);
-  // console.log("earnings: ", toBN(rawEarnings).toJSON());
+  console.log("pendingCali: ", toBN(rawEarnings).toJSON());
   return toBN(rawEarnings).toJSON();
 };

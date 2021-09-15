@@ -1,6 +1,6 @@
 export default {
   staking: {
-    test: "0x5b2ae372D14DB5cFdA3F579fD76222c87ae3B21f",
+    test: "0x51D3d63d123F0BA9ce002fdC25BE802Eb9A16A21",
     bsc: "",
   },
   multiCall: {
@@ -12,11 +12,11 @@ export default {
     bsc: "0xfF6FD90A470Aaa0c1B8A54681746b07AcdFedc9B",
   },
   bnbCali: {
-    test: "0xC712e0047BD134E7Ed43F65A9A680c917C2D87E6",
+    test: "0x705A364C6aE1daa6043DdBf71923B50d67046839",
     bsc: "",
   },
   cali: {
-    test: "0x3645ee609e80b9756a960524Dc6675780C814Ca8",
+    test: "0x9f88e838BD85393861a617e57897640B1A533E1a",
     bsc: "",
   },
 };

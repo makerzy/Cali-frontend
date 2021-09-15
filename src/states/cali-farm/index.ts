@@ -14,13 +14,20 @@ interface Farm {
   totalPoolValueBusd: string;
 }
 export const fetchFarm = async () => {
-  const { caliLpUsdvalue, caliPerBusdValue, poolValueInBUSD } =
-    await getCaliBusdPrice();
+  const {
+    caliLpUsdvalue,
+    caliPerBusdValue,
+    poolValueInBUSD,
+    farmWorthUsd,
+    rewardPerToken,
+  } = await getCaliBusdPrice();
 
   const poolInfo = {
     caliBusdPrice: caliPerBusdValue.toString(10),
     caliLpBusd: caliLpUsdvalue.toString(10),
     totalPoolValueBusd: poolValueInBUSD.toString(10),
+    farmWorthUsd,
+    rewardPerToken,
   } as Farm;
   // console.log("PoolInfo: ", poolInfo);
   return poolInfo;
@@ -37,6 +44,6 @@ export const fetchFarmUser = async (account: string) => {
     earnings: getBalanceAmount(earnings).toString(10),
     tokenBalance: getBalanceAmount(tokenBalance).toString(10),
   } as FarmUserDataResponse;
-  // console.log("userdata: ", userData);
+  console.log("userdata: ", userData);
   return userData;
 };

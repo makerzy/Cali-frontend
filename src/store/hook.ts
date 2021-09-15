@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FETCH_FARM } from "sagas/types";
 import { Farm, FarmState, FarmUserDataResponse } from "states/types";
@@ -36,13 +36,17 @@ export const useUserPoolInfo = () => {
 export const useUpdated = () => {
   const account = useAccount();
   const dispatch = useDispatch();
+  // const [fetched, setFetched] = useState<boolean>(false);
+  const dispatchValue = () =>
+    account ? { type: FETCH_FARM, payload: { account } } : { type: FETCH_FARM };
+
   useEffect(() => {
+    console.log("Account: ", dispatchValue());
+    dispatch(dispatchValue());
     const interval = setInterval(() => {
-      account
-        ? dispatch({ type: FETCH_FARM, payload: { account } })
-        : dispatch({ type: FETCH_FARM });
+      dispatch(dispatchValue());
     }, 60_000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [account]);
 };

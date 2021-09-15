@@ -2,6 +2,8 @@ export interface Farm {
   caliBusdPrice: string;
   caliLpBusd: string;
   totalPoolValueBusd: string;
+  rewardPerToken?: string;
+  farmWorthUsd?: string;
   user?: FarmUserDataResponse;
 }
 

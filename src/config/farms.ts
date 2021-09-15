@@ -3,11 +3,11 @@ import { FarmCategory, FarmConfig } from "./types";
 
 const farms: FarmConfig[] = [
   {
-    pid: { test: "0xDE3d5B6dc96A8Bc1aBB01B3A377f75405d3FdD8F", bsc: "" },
+    pid: { test: "0x705A364C6aE1daa6043DdBf71923B50d67046839", bsc: "" },
     lpSymbol: "CALI-BNB",
     category: FarmCategory.farm,
     lpAddresses: {
-      test: "0xDE3d5B6dc96A8Bc1aBB01B3A377f75405d3FdD8F",
+      test: "0x705A364C6aE1daa6043DdBf71923B50d67046839",
       bsc: "",
     },
     token: tokens.cali,

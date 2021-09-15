@@ -14,8 +14,10 @@ function* fetchFarms(action: any) {
   if (data) {
     yield put(setFarms(data));
     yield put(setLoading(false));
-    if (action?.payload?.account) {
-      const userData: [] = yield call(fetchFarmUser, action.payload.account);
+    console.log("Type and payload: ", data);
+    if (action?.payload) {
+      const userData: [] = yield call(fetchFarmUser, action?.payload?.account);
+      console.log(action?.payload, userData);
       if (userData) {
         yield put(setFarmUser(userData));
         yield put(setUserDataLoaded(true));

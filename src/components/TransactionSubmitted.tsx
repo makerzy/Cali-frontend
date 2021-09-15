@@ -53,7 +53,6 @@ interface TrxSubmitted {
 const TransactionSubmitted: React.FC<TrxSubmitted> = (
   trxSubmitted: TrxSubmitted,
 ) => {
-  // console.log("Hash: ", trxSubmitted.hash);
   return (
     <SubmittedCardContainer>
       <Header>

@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { IonContent, IonHeader, IonPage, IonToolbar } from "@ionic/react";
+import {
+  IonContent,
+  IonFooter,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
 
 import { Header, FarmCard, FooterComponent } from "components";
 import {
@@ -17,14 +24,25 @@ import { Farm } from "states/types";
 import styled from "styled-components";
 import background from "./bgsvg.svg";
 
-const Content = styled.div`
-  background: #f1f5f7 url(${background}) repeat center center;
-  height: 100%;
-  width: 100%;
+const Content = styled(IonContent)`
+  --background: #f1f5f7 url(${background}) repeat center center;
+  /* height: auto; */
+  /* padding-bottom: 40px; */
+  /* width: 100%; */
 `;
+const Footer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const CopyRight = styled.div``;
 
 const Home: React.FC = () => {
   const account = useAccount();
+  useUpdated();
   const dispatch = useDispatch();
   const [apr, setApr] = useState<number>(0);
   const [totalLiquidityBusd, setTotalLiquidityBusd] = useState<string>("0");
@@ -32,44 +50,44 @@ const Home: React.FC = () => {
   const caliLPUsd = useCaliLPBusdValue();
   const caliUsd = useCaliBusdValue();
   const { userDataLoaded, data } = useFarm();
-  const [fetched, setFetched] = useState(false);
-  useUpdated();
+
   useEffect(() => {
-    if (!fetched) {
-      account
-        ? dispatch({ type: FETCH_FARM, payload: { account } })
-        : dispatch({ type: FETCH_FARM });
-      setFetched(true);
-    }
-
     setFarm(data);
-
+    console.log("FArm: ", data);
     const apr = getCaliFarmApr(
       toBN(data?.caliLpBusd),
       toBN(data?.totalPoolValueBusd),
     );
     setTotalLiquidityBusd(data?.totalPoolValueBusd);
     setApr(apr);
-  }, [account, data]);
+  }, [dispatch, account, data]);
 
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color='dark'>
+        <IonToolbar color='primary'>
           <Header />
         </IonToolbar>
       </IonHeader>
-      <IonContent>
-        <Content>
-          {/* <Container> */}
-          <FarmCard
-            userData={userDataLoaded ? farm?.user : null}
-            {...{ account, apr, totalLiquidityBusd, caliLPUsd, caliUsd }}
-          />
-          {/* </Container> */}
-          <FooterComponent />
-        </Content>
-      </IonContent>
+      <Content>
+        {/* <Content> */}
+        <FarmCard
+          userData={userDataLoaded ? farm?.user : null}
+          {...{ account, apr, caliLPUsd, caliUsd }}
+          farmWorth={farm?.farmWorthUsd}
+          rewardPerToken={farm?.rewardPerToken}
+        />
+        {/* </Content> */}
+      </Content>
+      <IonFooter>
+        <IonToolbar color='primary'>
+          <Footer>
+            <CopyRight>
+              © {new Date().getFullYear()} CALICOIN - ALL RIGHTS RESERVED.
+            </CopyRight>
+          </Footer>
+        </IonToolbar>
+      </IonFooter>
     </IonPage>
   );
 };

@@ -31,6 +31,7 @@ import {
   TransactionWaiting,
 } from "components";
 import { FarmUserDataResponse } from "states/types";
+import { addToMetamask } from "utils/metamask";
 
 const Container = styled.div`
   width: 100%;
@@ -57,8 +58,8 @@ const TopComponent = styled(IonCard)`
   height: auto;
   width: 320px;
   color: #000;
-  padding: 20px 20px 30px;
-  margin: 0 auto 10px;
+  padding: 20px;
+  margin: 0 auto 20px;
 `;
 
 const TopHeader = styled.h4`
@@ -68,7 +69,7 @@ const CaliCard = styled(IonCard)`
   border-radius: 25px !important;
   width: 320px;
   height: auto;
-  margin: 0 auto 50px;
+  margin: 0 auto 0px;
   padding-bottom: 20px;
 `;
 
@@ -167,7 +168,8 @@ const CaliBNBIMG = styled.div`
 interface IFarm {
   account?: string;
   apr: number;
-  totalLiquidityBusd: string;
+  farmWorth?: string;
+  rewardPerToken?: string;
   caliLPUsd: string;
   caliUsd: string;
   userData?: FarmUserDataResponse;
@@ -176,7 +178,8 @@ interface IFarm {
 const Farmcard: React.FC<IFarm> = ({
   account,
   apr,
-  totalLiquidityBusd,
+  farmWorth,
+  rewardPerToken,
   userData,
   caliLPUsd,
   caliUsd,
@@ -259,7 +262,7 @@ const Farmcard: React.FC<IFarm> = ({
     presentTxnWaiting();
     // console.log("Number: ", value);
     const _web3: Web3 = await web3();
-    use_unstake(value, account, false, _web3)
+    use_unstake(value, account, _web3)
       .on("transactionHash", (tx: any) => {
         // console.log("trxn: ", tx);
         setTxnSubmittedMsg(`${tx}`);
@@ -283,7 +286,7 @@ const Farmcard: React.FC<IFarm> = ({
     // console.log("Number: ", value);
     presentTxnWaiting();
     const _web3: Web3 = await web3();
-    use_stake(value, account, false, _web3)
+    use_stake(value, account, _web3)
       .on("transactionHash", (tx: any) => {
         // console.log("trxn: ", tx);
         setTxnSubmittedMsg(`${tx}`);
@@ -367,7 +370,7 @@ const Farmcard: React.FC<IFarm> = ({
                   paddingBottom: "12px",
                 }}>
                 <h6>
-                  <b>20x</b>
+                  <b>{rewardPerToken}x</b>
                 </h6>
               </IonChip>
             </CaliHeaderDetail>
@@ -470,12 +473,16 @@ const Farmcard: React.FC<IFarm> = ({
               <BtmDetail>
                 <ColoredH5>Total Liquidity: </ColoredH5>
                 <h4>
-                  <b>{`${formartUSD(totalLiquidityBusd)}`}</b>
+                  <b>{`${formartUSD(farmWorth)}`}</b>
                 </h4>
               </BtmDetail>
               <BtmDetail>
                 <div>
-                  <ColoredH5>Add CALI to Metamask</ColoredH5>{" "}
+                  <ColoredH5
+                    style={{ cursor: "pointer" }}
+                    onClick={addToMetamask}>
+                    Add CALI to Metamask
+                  </ColoredH5>{" "}
                 </div>
               </BtmDetail>
             </>

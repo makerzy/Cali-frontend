@@ -94,6 +94,12 @@ const HeaderBar = () => {
         {mQuery?.matches && (
           <HeaderMenu>
             <HeaderMenuItem
+              href='https://calicoin.me/'
+              color='light'
+              fill='clear'>
+              Home
+            </HeaderMenuItem>
+            <HeaderMenuItem
               href='https://calicoin.me/im-a-donor/'
               color='light'
               fill='clear'>

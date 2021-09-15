@@ -5,6 +5,8 @@ const noAccountFarmConfig: Farm = {
   caliBusdPrice: "0",
   caliLpBusd: "0",
   totalPoolValueBusd: "0",
+  farmWorthUsd: "0",
+  rewardPerToken: "0",
   user: null,
 };
 
@@ -23,7 +25,6 @@ const farmSlice = createSlice({
     setLoading: (state, { payload }) => void (state.loading = payload),
     setFarmUser: (state, { payload }) => {
       state.data = { ...state.data, user: payload };
-      // console.log("Full PayLoad: ", state.data);
     },
     setUserDataLoaded: (state, { payload }) =>
       void (state.userDataLoaded = payload),

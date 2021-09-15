@@ -3,7 +3,7 @@ const tokens = {
     symbol: "CaliToken",
     address: {
       bsc: "",
-      test: "0x3645ee609e80b9756a960524Dc6675780C814Ca8",
+      test: "0x9f88e838BD85393861a617e57897640B1A533E1a",
     },
     decimals: 18,
     projectLink: "https://calicoin.me/",

@@ -2,13 +2,15 @@ import {
   getAddress,
   getBnbBusdLPAddress,
   getBnbCaliLPAddress,
+  getStakingAddress,
 } from "utils/addressHelper";
 import tokens from "config/tokens";
 import multicall from "utils/multicall";
 import erc20 from "abi/erc20.json";
 import { toBN } from "utils/BigNumber";
 import BigNumber from "bignumber.js";
-import { getBalanceAmount, getDecimalAmount } from "utils/formatBalance";
+import { getBalanceAmount } from "utils/formatBalance";
+import stakingContractABI from "abi/cali-staking.json";
 
 export const getBnbBusdPrice = async () => {
   const bnbBusdPool = getBnbBusdLPAddress() as string;
@@ -43,8 +45,10 @@ export const getBnbBusdPrice = async () => {
 
 export const getCaliBusdPrice = async () => {
   const caliPool = getBnbCaliLPAddress() as string;
+  const stakingAddress = getStakingAddress();
   const bnbAddress = getAddress(tokens.wbnb.address) as string;
   const caliAddress = getAddress(tokens.cali.address) as string;
+
   const calls = [
     {
       address: bnbAddress,
@@ -63,14 +67,29 @@ export const getCaliBusdPrice = async () => {
   ];
 
   const [bnbVolume, caliVolume, totalSupply] = await multicall(erc20, calls);
-
+  const secondCall = [
+    {
+      address: stakingAddress,
+      name: "rewardPerToken",
+    },
+    {
+      address: stakingAddress,
+      name: "poolSupply",
+    },
+  ];
+  const [rewardPerToken, poolSupply] = await multicall(
+    stakingContractABI,
+    secondCall,
+  );
   let totalBnbBusdValue,
     totalCaliBusdValue,
     caliPerBusdValue,
     poolValueInBNB,
     poolValueInBUSD,
     poolValueInCali,
+    farmWorthUsd,
     caliLpUsdvalue;
+
   poolValueInBNB = toBN(bnbVolume).times(2);
   poolValueInCali = toBN(caliVolume).times(2);
   const bnbBusdPrice = await getBnbBusdPrice();
@@ -78,18 +97,20 @@ export const getCaliBusdPrice = async () => {
     bnbBusdPrice.busdPerBNB,
   ); // usd Value of BNB
 
-  // console.log("Total BNB: ", totalBnbBusdValue.toString(10));
-  totalCaliBusdValue = totalBnbBusdValue;
   poolValueInBUSD = totalBnbBusdValue.times(2) as BigNumber;
+  totalCaliBusdValue = totalBnbBusdValue;
   caliPerBusdValue = totalBnbBusdValue.div(
     getBalanceAmount(caliVolume),
   ) as BigNumber;
   caliLpUsdvalue = poolValueInBUSD.div(
     getBalanceAmount(totalSupply),
   ) as BigNumber;
+  farmWorthUsd = caliLpUsdvalue.times(getBalanceAmount(poolSupply));
   return {
     poolValueInBUSD,
     caliPerBusdValue,
     caliLpUsdvalue,
+    farmWorthUsd,
+    rewardPerToken: getBalanceAmount(rewardPerToken).toNumber().toFixed(),
   };
 };
