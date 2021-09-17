@@ -370,14 +370,15 @@ const Farmcard: React.FC<IFarm> = ({
                   paddingBottom: "12px",
                 }}>
                 <h6>
-                  <b>{rewardPerToken}x</b>
+                  <b>{20}x</b>
                 </h6>
               </IonChip>
             </CaliHeaderDetail>
           </CaliCardheader>
           <DetailsContainer>
             <Key>APR:</Key>
-            <Value>{`${formatThousands(apr.toString())} %`}</Value>
+            {/* <Value>{`${formatThousands(apr.toString())} %`}</Value> */}
+            <Value>{`500 %`}</Value>
           </DetailsContainer>
           <DetailsContainer>
             <Key>Earn:</Key>

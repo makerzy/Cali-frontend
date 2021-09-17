@@ -94,26 +94,37 @@ const HeaderBar = () => {
         {mQuery?.matches && (
           <HeaderMenu>
             <HeaderMenuItem
-              href='https://calicoin.me/'
+              href='http://calicoin.me/'
+              target='_blank'
               color='light'
               fill='clear'>
               Home
             </HeaderMenuItem>
             <HeaderMenuItem
-              href='https://calicoin.me/im-a-donor/'
+              href='https://calicoin.me/charities/'
+              target='_blank'
               color='light'
               fill='clear'>
               Donate&nbsp;
               <IonIcon src='/assets/svgs/give.svg' />
             </HeaderMenuItem>
             <HeaderMenuItem
+              href='http://calicoin.me/'
+              target='_blank'
+              color='light'
+              fill='clear'>
+              How to Farm
+            </HeaderMenuItem>
+            <HeaderMenuItem
               href={`${BASE_ADD_LIQUIDITY_URL}${getCaliAddress()}`}
+              target='_blank'
               color='light'
               fill='clear'>
               Add Liquidity
             </HeaderMenuItem>
             <HeaderMenuItem
               href={`${BASE_EXCHANGE_URL}${getCaliAddress()}`}
+              target='_blank'
               color='light'
               fill='clear'>
               Buy on Pancake
